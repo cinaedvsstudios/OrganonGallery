@@ -56,7 +56,7 @@ function smartFileUpload(){
   function add(items){for(const file of items){const ok=(file.type.startsWith('image/')||['application/pdf','text/plain','text/csv'].includes(file.type)||/\.(pdf|txt|csv)$/i.test(file.name))&&file.size<=5*1024*1024;const entry={id:++counter,name:file.name,size:file.size,status:ok?'Ready':'Rejected',reason:file.size>5*1024*1024?'Exceeds 5 MB':'Unsupported file type',preview:null};if(ok&&file.type.startsWith('image/'))entry.preview=URL.createObjectURL(file);files.push(entry)}draw()}
   function draw(){
     document.querySelector('#ogx-upload-count').textContent=files.length;
-    document.querySelector('#ogx-upload-items').innerHTML=files.length?files.map(f=>`<article class="ogx-file-row">${f.preview?`<img src="${f.preview}" alt="">`:'<span class="ogx-file-icon">▤</span>'}<div><strong>${ogxEscape(f.name)}</strong><small>${readable(f.size)} · <span class="${f.status==='Rejected'?'ogx-error':''}">${f.status==='Rejected'?f.reason:f.status}</span></small></div><button class="btn" data-file-remove="${f.id}" aria-label="Remove ${ogxEscape(f.name)}">×</button></article>`).join(''):'<p class="ogx-empty">No files selected.</p>';
+    document.querySelector('#ogx-upload-items').innerHTML=files.length?files.map(f=>`<article class="ogx-file-row">${f.preview?`<img src="${f.preview}" alt="">`:'<span class="ogx-file-icon">▤</span>'}<div><strong>${ogxEscape(f.name)}</strong><small>${readable(f.size)} · <span class="${f.status==='Rejected'?'ogx-error':''}">${f.status==='Rejected'?f.reason:f.status}</span></small>${f.status==='Checking'||f.status==='Validated'?'<progress max="100" value="'+(f.progress||0)+'" aria-label="Local file validation progress"></progress>':''}</div><button class="btn" data-file-remove="${f.id}" aria-label="Remove ${ogxEscape(f.name)}">×</button></article>`).join(''):'<p class="ogx-empty">No files selected.</p>';
     document.querySelectorAll('[data-file-remove]').forEach(b=>b.onclick=()=>{const i=files.findIndex(f=>f.id===Number(b.dataset.fileRemove));if(i<0)return;if(files[i].preview)URL.revokeObjectURL(files[i].preview);files.splice(i,1);draw()});
   }
   const input=document.querySelector('#ogx-upload-input'),zone=document.querySelector('#ogx-drop-zone');
@@ -67,7 +67,18 @@ function smartFileUpload(){
   zone.ondragover=e=>{e.preventDefault();zone.classList.add('dragging')};
   zone.ondragleave=e=>{if(!zone.contains(e.relatedTarget))zone.classList.remove('dragging')};
   zone.ondrop=e=>{e.preventDefault();zone.classList.remove('dragging');add([...e.dataTransfer.files])};
-  document.querySelector('#ogx-upload-process').onclick=()=>{files=files.map(f=>({...f,status:f.status==='Rejected'?'Rejected':'Validated'}));draw()};
+  let validationTimer=null;
+  document.querySelector('#ogx-upload-process').onclick=()=>{
+    if(validationTimer)clearInterval(validationTimer);
+    files.forEach(f=>{if(f.status!=='Rejected'){f.status='Checking';f.progress=0}});
+    draw();
+    validationTimer=setInterval(()=>{
+      let pending=false;
+      files.forEach(f=>{if(f.status==='Checking'){f.progress=Math.min(100,(f.progress||0)+20);if(f.progress>=100)f.status='Validated';else pending=true}});
+      draw();
+      if(!pending){clearInterval(validationTimer);validationTimer=null}
+    },130);
+  };
   window.addEventListener('pagehide',()=>files.forEach(f=>{if(f.preview)URL.revokeObjectURL(f.preview)}),{once:true});draw();
 }
 
@@ -127,6 +138,16 @@ function comparisonSlider(){
     document.querySelectorAll('[data-compare-orient]').forEach(b=>b.classList.toggle('active',b.dataset.compareOrient===direction));
   }
   input.oninput=e=>{amount=Number(e.target.value);draw()};
+  let pointerActive=false;
+  function updateFromPointer(e){
+    const rect=stage.getBoundingClientRect();
+    const fraction=direction==='horizontal'?(e.clientX-rect.left)/rect.width:(e.clientY-rect.top)/rect.height;
+    amount=Math.max(0,Math.min(100,Math.round(fraction*100)));draw();
+  }
+  input.onpointerdown=e=>{e.preventDefault();pointerActive=true;stage.setPointerCapture(e.pointerId);updateFromPointer(e)};
+  stage.onpointermove=e=>{if(pointerActive)updateFromPointer(e)};
+  stage.onpointerup=()=>{pointerActive=false};
+  stage.onpointercancel=()=>{pointerActive=false};
   document.querySelector('#ogx-compare-reset').onclick=()=>{amount=50;draw()};
   document.querySelectorAll('[data-compare-orient]').forEach(b=>b.onclick=()=>{direction=b.dataset.compareOrient;draw()});
   draw();

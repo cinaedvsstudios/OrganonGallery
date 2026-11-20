@@ -20,11 +20,23 @@ function storyboardPlanner(){
     document.querySelectorAll('[data-shot-mode]').forEach(b=>b.classList.toggle('active',b.dataset.shotMode===mode));
     document.querySelector('#ogx-runtime').textContent=shots.length+' shots · '+shots.reduce((n,s)=>n+s.duration,0)+' seconds';
     document.querySelector('#ogx-shot-outline').innerHTML=shots.map((s,i)=>`<button class="ogx-outline-item ${s.id===active?'active':''}" data-shot="${s.id}"><span>${String(i+1).padStart(2,'0')}</span> ${ogxEscape(s.name)}</button>`).join('');
-    document.querySelector('#ogx-shot-board').innerHTML=`<div class="${mode==='grid'?'ogx-shot-grid':'ogx-shot-list'}">${shots.map((s,i)=>`<article class="ogx-shot-card ${s.id===active?'selected':''}" data-shot-card="${s.id}">${art(i+1)}<div class="ogx-shot-info"><small>SCENE ${s.scene} · ${s.duration}s</small><strong>${ogxEscape(s.name)}</strong><span>${ogxEscape(s.type)}</span></div><div class="ogx-shot-actions"><button class="btn" data-shift="${s.id}" data-direction="-1" aria-label="Move up">↑</button><button class="btn" data-shift="${s.id}" data-direction="1" aria-label="Move down">↓</button></div></article>`).join('')}</div>`;
+    document.querySelector('#ogx-shot-board').innerHTML=`<div class="${mode==='grid'?'ogx-shot-grid':'ogx-shot-list'}">${shots.map((s,i)=>`<article class="ogx-shot-card ${s.id===active?'selected':''}" data-shot-card="${s.id}" draggable="true">${art(i+1)}<div class="ogx-shot-info"><small>SCENE ${s.scene} · ${s.duration}s</small><strong>${ogxEscape(s.name)}</strong><span>${ogxEscape(s.type)}</span></div><div class="ogx-shot-actions"><button class="btn" data-shift="${s.id}" data-direction="-1" aria-label="Move up">↑</button><button class="btn" data-shift="${s.id}" data-direction="1" aria-label="Move down">↓</button></div></article>`).join('')}</div>`;
     const s=get();if(!s)return;
     document.querySelector('#ogx-shot-editor').innerHTML=`<label>Shot title<input id="ogx-shot-name" value="${ogxEscape(s.name)}"></label><label>Scene<input id="ogx-shot-scene" value="${ogxEscape(s.scene)}"></label><label>Shot type<select id="ogx-shot-type">${['Wide','Medium','Close-up','Tracking','Overhead'].map(v=>`<option ${s.type===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Duration (seconds)<input id="ogx-shot-duration" type="number" min="1" max="300" value="${s.duration}"></label><label>Notes<textarea id="ogx-shot-notes">${ogxEscape(s.notes)}</textarea></label><div class="ogx-toolrow"><button class="btn" id="ogx-duplicate-shot">Duplicate</button><button class="btn" id="ogx-delete-shot">Remove</button></div>`;
     document.querySelectorAll('[data-shot],[data-shot-card]').forEach(el=>el.onclick=e=>{if(e.target.closest('[data-shift]'))return;active=Number(el.dataset.shot||el.dataset.shotCard);redraw()});
     document.querySelectorAll('[data-shift]').forEach(b=>b.onclick=()=>{let i=shots.findIndex(s=>s.id===Number(b.dataset.shift)),j=i+Number(b.dataset.direction);if(j<0||j>=shots.length)return;[shots[i],shots[j]]=[shots[j],shots[i]];redraw()});
+    document.querySelectorAll('[data-shot-card]').forEach(card=>{
+   card.ondragstart=e=>{e.dataTransfer.setData('text/plain',card.dataset.shotCard);e.dataTransfer.effectAllowed='move'};
+   card.ondragover=e=>{e.preventDefault();card.classList.add('drop-target')};
+   card.ondragleave=()=>card.classList.remove('drop-target');
+   card.ondrop=e=>{e.preventDefault();card.classList.remove('drop-target');
+     const source=Number(e.dataTransfer.getData('text/plain')),target=Number(card.dataset.shotCard);
+     if(source===target)return;
+     const i=shots.findIndex(s=>s.id===source),j=shots.findIndex(s=>s.id===target);
+     if(i<0||j<0)return;const [moving]=shots.splice(i,1);shots.splice(j,0,moving);active=source;redraw();
+   };
+ });
+ 
     for(const [field,key] of [['name','name'],['scene','scene'],['type','type'],['notes','notes'],['duration','duration']]){
       document.querySelector('#ogx-shot-'+field).onchange=e=>{s[key]=field==='duration'?Math.max(1,Number(e.target.value)||1):e.target.value;redraw()};
     }
