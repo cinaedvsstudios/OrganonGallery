@@ -1,5 +1,16 @@
 # OrganonGallery — progress and continuation plan
 
+## GALLERY PALETTE AND LOCK — completed and verified (2026-11-20)
+- Color palette now changes the gallery shell as well as the selected template: sidebar, title bar, page background, cards, controls, text and borders use the shared palette roles with readable foregrounds.
+- Added the checkbox "Don't change this site" immediately to the left of Color palette. Unchecked by default: gallery follows the selected palette. Checking freezes the current gallery colors while template previews and downloads keep following the palette control. Unchecking immediately synchronizes the gallery again.
+- The checkbox preference and frozen gallery palette persist across reloads. Mobile places the checkbox above the two dropdowns to keep the controls within the screen.
+- Verification: desktop and mobile toggle behavior, ordering, template changes while locked, reload persistence, all 21 palettes' navigation/title/card-text contrast, no horizontal mobile overflow and no browser errors passed. Desktop and mobile screenshots inspected.
+- Changed only index.html, app.js, style.css and this progress file; no starter/ZIP rebuild needed. QA helpers and screenshots stay in staging qa/ and are excluded from the public site.
+
+## PENDING — template information placement clarification
+- User explicitly rejected the generic "Template details" disclosure above each template's normal content. They want the information integrated into a suitable place in each actual page design, replacing relevant placeholder text where appropriate: Photo Gallery below its title; Panorama hero title/paragraph can become the template information. Each design needs individual inspection and placement.
+- This clarification has been acknowledged; placement changes have NOT been made in the gallery palette/checkbox task. The existing disclosure is not an approved final solution.
+
 ## THIRD REVIEW — completed, verified and saved (2026-11-20)
 - Websites and Web apps merged. Current counts: **35 entries, 31 downloadable starters, 4 studies, 21 palettes, 651 prebuilt palette ZIPs**. Categories: 12 Websites & Web apps, 4 Databases, 4 Chrome extensions, 7 Dashboards, 8 Elements.
 - Sliding Tool Hub corrected using the original Organon navigation/timer structure: two independently collapsible rows; category selection replaces the tool row. After idle, row two begins a 550ms fade/collapse at 3.2 seconds; row one follows 1.75 seconds later (transition plus gap). Hover/keyboard interaction resets timing; pinning prevents closure. No combined hide animation.
@@ -21,8 +32,8 @@ Updated: 2026-11-20. Current phase: third review complete, checked and saved to 
 ## User requirements
 - Public gallery web app in F:\GITHUB\OrganonGallery. Blank, unbranded starters with generic logos, lorem ipsum, placeholder imagery, real menus and normal controls.
 - Filter by Websites & Web apps (merged), Databases, Chrome extensions, Dashboards and Elements; saved favorites and search/sort.
-- Blue sticky sidebar, white navigation text, darker borders. Sticky charcoal top bar contains the current page title, Color palette dropdown and Download ZIP. No duplicate title, promotional copy, marketing banners or right-hand palette panel.
-- Actual iframe previews with desktop/tablet/mobile sizing and fullscreen. Feature information must be ON THE TEMPLATE WEBPAGE: it now appears inside the iframe in an open “Template details” disclosure. It is removed from starter downloads.
+- Sticky sidebar with white navigation text and darker borders; sticky title bar with current page title, gallery-color lock checkbox, Color palette, Style and Download ZIP. The gallery now follows the selected palette unless locked. No duplicate title, promotional copy, marketing banners or right-hand palette panel.
+- Actual iframe previews with desktop/tablet/mobile sizing and fullscreen. Feature information must be integrated into the actual template page's normal content in a suitable location for each design. The existing “Template details” disclosure was rejected; replacement remains pending as described above. Starter downloads currently omit that disclosure.
 - A single layout per template; color schemes are options. 21 shared palettes. Cherry Blossom uses Wisteria Bloom colors; Neon Noir merged into Cyberpunk.
 - Editorial must be a centered frame with headline and image columns, side arrows, and separate carousels for each menu. Implemented with Pages, About, Services, Contact; each collection remembers its own slide position.
 - Blank Page removed from the catalog, as requested. The former Desktop apps category remains replaced by Dashboards.
