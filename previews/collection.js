@@ -1,6 +1,144 @@
 /* Sanitized layout adaptations. Source references are recorded in catalog.js. */
 const collectionRenderers={recordAdmin,domeStudio,toolHub,taskPlanner,workflowPopup,automationQueue,usageAnalytics,socialReports,socialComposer,eventsDirectory,portfolioFrame,studioCarousel,movingShowcase,storyFrame};
-function showTemplateDetails(){if(FIXED_CONFIG||new URLSearchParams(location.search).get('thumbnail'))return;const entry=window.ORGANON_CATALOG?.find(t=>t.kind===kind);if(!entry)return;const note=document.createElement('details');note.className='template-documentation';note.open=true;note.innerHTML=`<summary>Template details</summary><p>${entry.description}</p><ul>${entry.features.map(f=>`<li>${f}</li>`).join('')}</ul>`;document.body.prepend(note)}
+function showTemplateDetails(){
+  // Gallery-only editorial copy. Each placement belongs to its native layout;
+  // standalone downloads keep their generic, editable placeholder content.
+  if(FIXED_CONFIG || new URLSearchParams(location.search).has('thumbnail'))return;
+  const id=new URLSearchParams(location.search).get('template');
+  if(!window.ORGANON_CATALOG?.some(item=>item.id===id))return;
+
+  const replace=(selector,copy)=>{
+    const element=document.querySelector(selector);
+    if(element && element.textContent!==copy)element.textContent=copy;
+  };
+  const insert=(anchor,copy,where='afterend',compact=false)=>{
+    const element=document.querySelector(anchor);
+    if(!element || document.querySelector('[data-gallery-copy="'+id+'"]'))return;
+    const paragraph=document.createElement('p');
+    paragraph.dataset.galleryCopy=id;
+    paragraph.textContent=copy;
+    paragraph.style.cssText='font-size:'+(compact?'11px':'13px')+';line-height:1.5;margin:'+(compact?'5px 0 9px':'9px 0 15px')+';max-width:85ch;color:var(--muted,var(--text))';
+    element.insertAdjacentElement(where,paragraph);
+  };
+  const onRedraw=(selector,update)=>{
+    const container=document.querySelector(selector);
+    if(!container)return;
+    update();
+    // Carousels rewrite their own inner content when a slide changes. Restore
+    // the introductory copy only on the relevant slide, not on every slide.
+    new MutationObserver(update).observe(container,{childList:true,subtree:true});
+  };
+
+  switch(id){
+    case 'basic-site':
+      replace('.hero p','A responsive two-column website starter with a working navigation menu, hover feedback, feature sections and a contact form.');
+      replace('#features .section-intro','Explore the dropdown navigation, feature cards and helpful tooltips. The layout adapts to smaller screens and supports the gallery color palettes.');
+      document.querySelectorAll('.feature-card p').forEach((el,i)=>{const copy=['Menus and active links adjust to the available screen width.','Buttons and cards provide hover states and contextual feedback.','A built-in contact section demonstrates form entry and validation.'];if(copy[i])el.textContent=copy[i]});
+      break;
+    case 'editorial-site':
+      onRedraw('#editorial-slide',()=>{if(document.querySelector('.editorial-carousel-copy small')?.textContent.trim()==='Pages · 1')replace('.editorial-carousel-copy p','A two-column editorial carousel with separate Pages, About, Services and Contact collections. Explore each using the arrows, slide dots or keyboard.');});
+      break;
+    case 'panorama-site':
+      replace('.panorama-copy p','A full-height background hero with floating dropdown navigation, central content and links to projects, services and contact sections.');
+      break;
+    case 'navigation-panel':
+      replace('.element-canvas > p','A reusable responsive navigation panel with nested menus, active-page highlighting and a toggle for compact screens. Select a menu item to see its state change.');
+      break;
+    case 'photo-gallery':
+      replace('.element-page > p','Filter the image grid by category, then open an image in the lightbox. Move between images with the buttons or keyboard, and press Escape to close.');
+      break;
+    case 'tabs-accordion':
+      replace('.element-page > p','Switch between accessible keyboard-operated tabs, open the accordion questions and try the sample settings control. Each section can be reused independently.');
+      break;
+    case 'overview':
+      replace('.page-heading p','A responsive dashboard with summary cards, a selectable reporting period and a chart of local sample activity.');
+      break;
+    case 'workspace':
+      replace('.page-heading p','A three-column task board. Add tasks, move them between stages and explore the File, Edit and View menus.');
+      break;
+    case 'data-room':
+      replace('.page-heading p','Browse sample database records, search and remove rows, or switch to the schema view. This is a browser demo, not a connected database.');
+      break;
+    case 'pocket-panel':
+      replace('.popup-heading p','A compact extension-popup study with working settings switches and a quick note field.');
+      break;
+    case 'record-admin':
+      insert('#admin-title','Search and filter sample records, edit or select rows, switch between table views and export a CSV.', 'afterend',true);
+      break;
+    case 'dome-studio':
+      insert('#dome-heading','Choose a task beneath the curved navigation canopy. Edit the inputs, view the output and use Copy or Reset.', 'afterend',true);
+      break;
+    case 'sliding-tool-hub':
+      insert('.basin-content-wrapper > header','Choose a category to update the tool row. The two rows retract independently after inactivity; hover to reveal them or pin them open.', 'afterend',true);
+      break;
+    case 'task-planner':
+      insert('.planner-body > header','Select dates on the calendar, filter upcoming items and add, complete or remove sample tasks. Links and notes have their own views.', 'afterend',true);
+      break;
+    case 'workflow-popup':
+      insert('.queue-header nav','Pick a task, paste example rows and run the local queue with pause, skip and stop controls. Results can be copied or exported.', 'afterend',true);
+      break;
+    case 'automation-queue':
+      insert('.queue-header nav','Choose a processing mode, populate the queue and monitor progress. Pause, resume, skip and export locally; no real automation is connected.', 'afterend',true);
+      break;
+    case 'usage-analytics':
+      replace('.usage-chart .chart-caption','Sample data only · Change month, weekdays and chart type to recalculate the KPIs and export the current data.');
+      break;
+    case 'social-reports':
+      insert('.social-report-card:first-child .c-panel-heading','Each report has its own date range, metric and chart controls. Compare audience, account and content figures or export sample CSV data.', 'afterend',true);
+      break;
+    case 'social-composer':
+      insert('.composer-main .c-card > h1','Compose a post, attach media, preview it and save a local draft. Scheduling and publishing controls are demonstrations only.', 'afterend',true);
+      break;
+    case 'events-directory':
+      insert('.directory-layout main > .c-panel-heading','Browse events by date or category, search entries and save favorites. The listings are local demonstration content.', 'afterend',true);
+      break;
+    case 'portfolio-frame':
+      replace('.portfolio-heading div > span','Asymmetric project tiles · grayscale-to-color hover · detailed project views');
+      break;
+    case 'studio-carousel':
+      onRedraw('#studio-slide',()=>{if(document.querySelector('.studio-hero p'))replace('.studio-hero p','Explore a framed, full-slide studio layout with distinct Home, Projects, Story and About compositions. Use the navigation, arrows, dots or keyboard to move between sections.');});
+      break;
+    case 'moving-showcase':
+      onRedraw('#showcase-content',()=>{if(document.querySelector('.showcase-hero')){replace('.showcase-hero .lede','A continuously moving image strip introduces the site above a left-hand navigation and scrollable content area.');replace('.showcase-hero p:last-of-type','Pause or resume the animation explicitly; it continues over the pointer and adapts to narrower screens.');}});
+      break;
+    case 'story-frame':
+      onRedraw('#story-content',()=>{if(document.querySelector('#story-label')?.textContent==='Home')replace('#story-content > p','This framed reading layout contains chapters, characters, media and other sections. Navigate with the arrows, dots or menu while the central story card scrolls independently.');});
+      break;
+    case 'writing-room':
+      insert('.writing-pad-toolbar','Arrange nested folders and documents in the left filing cabinet, jump between files with the rail and edit or export the selected document.', 'afterend',true);
+      break;
+    case 'settings-designer':
+      replace('.designer-live-preview > p','Search grouped settings, adjust colors and typography, and see changes reflected in this live preview. Export the result as JSON.');
+      break;
+    case 'context-search':
+      replace('#context-preview > p','Search the sample document using exact or fuzzy matching. Select a highlighted snippet to open its surrounding text, then jump to the matching passage.');
+      break;
+    case 'admin-reports':
+      replace('.admin-report-header p','Switch between reporting, quality and coverage views. Country, month and scope filters recalculate sample metrics; export CSV or JSON reports.');
+      break;
+    case 'system-settings':
+      replace('.system-settings-scroll > p','Explore grouped settings, quick-edit actions and backup controls. Import or export sample JSON, or reset the local demonstration.');
+      break;
+    case 'location-panel':
+      replace('.location-card > p','Choose a city or postcode, or request GPS access explicitly. Preview the coordinates, apply or clear the choice. No location is sent to a server.');
+      break;
+    case 'history-dashboard':
+      insert('.history-shell > header','Expand months and weeks to inspect totals and averages, edit daily entries, scan gaps or calculate a custom date range.', 'afterend',true);
+      break;
+    case 'calendar-records':
+      insert('.overview-search','Search and filter sample records, select rows, edit fields or inspect operation history and undo.', 'afterend',true);
+      break;
+    case 'trip-itinerary':
+      insert('.trip-banner .pill','Choose a trip on the left, expand its daily itinerary and use the edit, duplicate, reorder and export actions.', 'afterend',true);
+      break;
+    case 'month-dashboard':
+      insert('.month-dashboard-header','Switch between Today, Week and Month, then manage the sample calendar, linked summaries, tasks and reminders.', 'afterend',true);
+      break;
+    case 'registry-reports':
+      insert('.registry-report-shell > header','Combine country, city, classification, origin and status filters; edit locations and export the filtered sample registry.', 'afterend',true);
+      break;
+  }
+}
 const cButton=(label,action,primary=false)=>`<button class="btn ${primary?'primary':''}" data-do="${action}">${label}</button>`;
 function cBind(action,fn){document.querySelectorAll(`[data-do="${action}"]`).forEach(el=>el.onclick=fn)}
 function cDownload(filename,text,type='text/csv'){const url=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
