@@ -113,7 +113,7 @@ window.ORGANON_CATALOG = [
   {
     "id": "workspace",
     "name": "Workspace",
-    "category": "app",
+    "category": "website",
     "label": "Web app",
     "art": "peach",
     "kind": "board",
@@ -213,10 +213,10 @@ window.ORGANON_CATALOG = [
     "art": "blue",
     "description": "Disappearing menu bars above a large central tool frame and bottom dock.",
     "features": [
-      "Hover and keyboard-revealed menu bars",
-      "Category and tool navigation",
-      "Pin menus open or let them disappear",
-      "Central workspace and bottom control dock"
+      "Two independent category/tool menu rows",
+      "First row changes the second-row tools",
+      "Tool row closes smoothly, then category row",
+      "Idle timers, pinning and keyboard reveal"
     ],
     "ready": true,
     "source": {
@@ -457,10 +457,10 @@ window.ORGANON_CATALOG = [
     "art": "mint",
     "description": "Moving image strip across the header, with icon navigation and a content panel.",
     "features": [
-      "Continuously moving placeholder image strip",
-      "Pause on hover and explicit pause control",
+      "Seamlessly moving top image strip",
+      "Explicit pause/resume; pointer does not stop motion",
       "Left navigation and internal scrolling content",
-      "Responsive strip and reduced-motion support"
+      "Responsive loop width"
     ],
     "ready": true,
     "source": {
@@ -732,6 +732,29 @@ window.ORGANON_CATALOG = [
         "index.html",
         "app.js",
         "styles.css"
+      ],
+      "approach": "sanitized-local-source-layout-adaptation"
+    }
+  },
+  {
+    "id": "registry-reports",
+    "name": "Registry Reports",
+    "category": "dashboard",
+    "label": "Dashboard",
+    "kind": "registryReports",
+    "art": "blue",
+    "ready": true,
+    "description": "Registry report with country, city, classification, origin and status filters.",
+    "features": [
+      "Five combinable filters and sortable results",
+      "Country and location edit/add/delete forms",
+      "Registry JSON import/export and reset",
+      "Filtered CSV export"
+    ],
+    "source": {
+      "project": "backroomadmin",
+      "files": [
+        "public/admin-phase2-geo.js"
       ],
       "approach": "sanitized-local-source-layout-adaptation"
     }

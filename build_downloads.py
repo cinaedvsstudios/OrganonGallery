@@ -13,6 +13,8 @@ palettes = json.loads(registry.split('=', 1)[1].strip().removesuffix(';'))
 catalog = json.loads((ROOT / 'catalog.js').read_text(encoding='utf-8').split('=',1)[1].strip().removesuffix(';'))
 templates = [(t['id'],t['kind']) for t in catalog if t.get('ready')]
 count = 0
+package_target = ROOT / 'package-data'
+package_target.mkdir(exist_ok=True)
 for slug, kind in templates:
     for palette in palettes:
         theme = palette['id']
@@ -25,6 +27,7 @@ for slug, kind in templates:
         html = html[:start] + escape_helper + '\n' + kind + '();\n' + html[dispatch.end():]
         html = html.replace('showTemplateDetails();','').replace('<script src="../catalog.js"></script>','')
         html = html.replace('../palettes.js', './palettes.js')
+        html = html.replace('../styles.js', './styles.js')
         asset_group = 'websites' if kind in ['editorial', 'panorama'] else 'elements' if kind in ['navigation', 'gallery', 'controls'] else None
         for group in ['websites', 'elements']:
             if group != asset_group:
@@ -33,7 +36,8 @@ for slug, kind in templates:
         with ZipFile(target / f'{slug}-{theme}.zip', 'w', ZIP_DEFLATED) as archive:
             archive.writestr(f'{slug}/index.html', html)
             archive.writestr(f'{slug}/palettes.js', registry)
-            for filename in ['collection.css','collection.js','extras.css','extras.js']:
+            archive.writestr(f'{slug}/styles.js',(ROOT/'styles.js').read_text(encoding='utf-8'))
+            for filename in ['collection.css','collection.js','extras.css','extras.js','appearance.css','appearance.js','style-config.js','interaction-fixes.css','interaction-fixes.js','registry-reports.css','registry-reports.js']:
                 archive.writestr(f'{slug}/{filename}',(ROOT/'previews'/filename).read_text(encoding='utf-8'))
             if asset_group:
                 for suffix in ['css', 'js']:
@@ -50,9 +54,9 @@ for slug, kind in templates:
                 html = re.sub(r'<script>.*?</script>','<script src="./bootstrap.js"></script>',html,flags=re.S)
                 archive.writestr(f'{slug}/extension/index.html',html)
                 archive.writestr(f'{slug}/extension/bootstrap.js',bootstrap)
-                assets=['palettes.js','collection.js','collection.css','extras.css','extras.js']
+                assets=['palettes.js','styles.js','collection.js','collection.css','extras.css','extras.js','appearance.css','appearance.js','style-config.js','interaction-fixes.css','interaction-fixes.js','registry-reports.css','registry-reports.js']
                 for filename in assets:
-                    data=registry if filename=='palettes.js' else (ROOT/'previews'/filename).read_text(encoding='utf-8')
+                    data=registry if filename=='palettes.js' else (ROOT/'styles.js').read_text(encoding='utf-8') if filename=='styles.js' else (ROOT/'previews'/filename).read_text(encoding='utf-8')
                     archive.writestr(f'{slug}/extension/{filename}',data)
                 manifest={'manifest_version':3,'name':item['name']+' Starter','version':'1.0.0','description':'Generic UI starter with local demo data. No site access.'}
                 if kind=='socialComposer':
@@ -67,5 +71,9 @@ for slug, kind in templates:
                 archive.writestr(f'{slug}/extension/manifest.json',json.dumps(manifest,indent=2))
                 if background:archive.writestr(f'{slug}/extension/extension-background.js',background)
                 archive.writestr(f'{slug}/extension/INSTALL.txt','Enable Developer mode in chrome://extensions, choose Load unpacked, and select this extension folder. The package contains UI simulations only; no original automation or accounts are connected.')
+        if theme=='original':
+            with ZipFile(target/f'{slug}-{theme}.zip') as source_zip:
+                files={name:source_zip.read(name).decode('utf-8') for name in source_zip.namelist()}
+            (package_target/f'{slug}.js').write_text('window.ORGANON_PACKAGE_DATA('+json.dumps(slug)+','+json.dumps(files,ensure_ascii=False)+');\n',encoding='utf-8')
         count += 1
 print(f'Built {count} ZIPs: {len(templates)} starters x {len(palettes)} color schemes.')

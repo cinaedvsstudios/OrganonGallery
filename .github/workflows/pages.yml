@@ -25,8 +25,8 @@ jobs:
       - name: Assemble public files only
         run: |
           mkdir _site
-          cp index.html style.css app.js palettes.js catalog.js favicon.svg _site/
-          cp -r previews downloads thumbnails _site/
+          cp index.html style.css app.js palettes.js catalog.js styles.js zip-download.js favicon.svg _site/
+          cp -r previews downloads thumbnails package-data _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

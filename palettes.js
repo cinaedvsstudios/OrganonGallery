@@ -16,7 +16,13 @@ window.ORGANON_PALETTES = [
       "#b8c2d2",
       "#ffffff",
       "#e9ecf8"
-    ]
+    ],
+    "roles": {
+      "primary": "#6267b0",
+      "secondary": "#EDF0F7",
+      "tertiary": "#343E50",
+      "fourth": "#343E50"
+    }
   },
   {
     "id": "lcars",
@@ -35,7 +41,13 @@ window.ORGANON_PALETTES = [
       "#756482",
       "#16131d",
       "#4b355b"
-    ]
+    ],
+    "roles": {
+      "primary": "#ffb879",
+      "secondary": "#BC99ED",
+      "tertiary": "#16131D",
+      "fourth": "#16131D"
+    }
   },
   {
     "id": "cyberpunk",
@@ -46,7 +58,8 @@ window.ORGANON_PALETTES = [
       "#BF00FF",
       "#2D2D2D",
       "#E8FF59",
-      "#ED58BD"
+      "#ED58BD",
+      "#00F0FF"
     ],
     "tokens": [
       "#2cff05",
@@ -57,7 +70,13 @@ window.ORGANON_PALETTES = [
       "#656574",
       "#000000",
       "#32203d"
-    ]
+    ],
+    "roles": {
+      "primary": "#2CFF05",
+      "secondary": "#BF00FF",
+      "tertiary": "#00F0FF",
+      "fourth": "#ED58BD"
+    }
   },
   {
     "id": "windows",
@@ -76,7 +95,13 @@ window.ORGANON_PALETTES = [
       "#a7bfd3",
       "#ffffff",
       "#e3f1ff"
-    ]
+    ],
+    "roles": {
+      "primary": "#0078d4",
+      "secondary": "#EAF4FF",
+      "tertiary": "#243447",
+      "fourth": "#243447"
+    }
   },
   {
     "id": "cherry",
@@ -96,7 +121,13 @@ window.ORGANON_PALETTES = [
       "#ae8caf",
       "#ffffff",
       "#d8bfd8"
-    ]
+    ],
+    "roles": {
+      "primary": "#9400d3",
+      "secondary": "#D3D3FF",
+      "tertiary": "#D8BFD8",
+      "fourth": "#ED80E9"
+    }
   },
   {
     "id": "spring",
@@ -115,7 +146,13 @@ window.ORGANON_PALETTES = [
       "#a6b99a",
       "#ffffff",
       "#e3efcf"
-    ]
+    ],
+    "roles": {
+      "primary": "#3d7c52",
+      "secondary": "#EDF5DE",
+      "tertiary": "#293E31",
+      "fourth": "#293E31"
+    }
   },
   {
     "id": "ink-wash",
@@ -135,7 +172,13 @@ window.ORGANON_PALETTES = [
       "#6d8196",
       "#ffffff",
       "#e5e6d0"
-    ]
+    ],
+    "roles": {
+      "primary": "#4a4a4a",
+      "secondary": "#CBCBCB",
+      "tertiary": "#FFFFE3",
+      "fourth": "#6D8196"
+    }
   },
   {
     "id": "burnt-sienna",
@@ -155,7 +198,13 @@ window.ORGANON_PALETTES = [
       "#a0522d",
       "#ffffff",
       "#f7d6ad"
-    ]
+    ],
+    "roles": {
+      "primary": "#a0522d",
+      "secondary": "#E35336",
+      "tertiary": "#F5F5DC",
+      "fourth": "#F4A460"
+    }
   },
   {
     "id": "desert-dusk",
@@ -175,7 +224,13 @@ window.ORGANON_PALETTES = [
       "#a2574f",
       "#ffffff",
       "#e9c4cc"
-    ]
+    ],
+    "roles": {
+      "primary": "#993a8b",
+      "secondary": "#A2574F",
+      "tertiary": "#E68057",
+      "fourth": "#BF7587"
+    }
   },
   {
     "id": "zesty-lemon",
@@ -195,7 +250,13 @@ window.ORGANON_PALETTES = [
       "#898932",
       "#343411",
       "#ffe566"
-    ]
+    ],
+    "roles": {
+      "primary": "#ffff66",
+      "secondary": "#FFE566",
+      "tertiary": "#D6D58B",
+      "fourth": "#B3B347"
+    }
   },
   {
     "id": "california-beaches",
@@ -215,7 +276,13 @@ window.ORGANON_PALETTES = [
       "#7d99aa",
       "#153347",
       "#ffc067"
-    ]
+    ],
+    "roles": {
+      "primary": "#66C4FF",
+      "secondary": "#FFC067",
+      "tertiary": "#66F4FF",
+      "fourth": "#7D99AA"
+    }
   },
   {
     "id": "sunny-day",
@@ -235,7 +302,13 @@ window.ORGANON_PALETTES = [
       "#807040",
       "#ffffff",
       "#e6f0ff"
-    ]
+    ],
+    "roles": {
+      "primary": "#2400ff",
+      "secondary": "#FFBF00",
+      "tertiary": "#807040",
+      "fourth": "#007EFF"
+    }
   },
   {
     "id": "bubblegum-pop",
@@ -255,7 +328,13 @@ window.ORGANON_PALETTES = [
       "#9d687f",
       "#ffffff",
       "#b9f8fc"
-    ]
+    ],
+    "roles": {
+      "primary": "#069494",
+      "secondary": "#FF69B4",
+      "tertiary": "#FFFFFF",
+      "fourth": "#00F0FF"
+    }
   },
   {
     "id": "cool-revival",
@@ -275,7 +354,13 @@ window.ORGANON_PALETTES = [
       "#42908b",
       "#102f3b",
       "#00ffff"
-    ]
+    ],
+    "roles": {
+      "primary": "#00aeff",
+      "secondary": "#00FFFF",
+      "tertiary": "#00DE94",
+      "fourth": "#00F552"
+    }
   },
   {
     "id": "neon-jungle",
@@ -295,7 +380,13 @@ window.ORGANON_PALETTES = [
       "#729064",
       "#16200c",
       "#41214e"
-    ]
+    ],
+    "roles": {
+      "primary": "#89f336",
+      "secondary": "#38A711",
+      "tertiary": "#F23598",
+      "fourth": "#A835F2"
+    }
   },
   {
     "id": "pop-art",
@@ -315,7 +406,13 @@ window.ORGANON_PALETTES = [
       "#725b7b",
       "#28212d",
       "#ffb5d9"
-    ]
+    ],
+    "roles": {
+      "primary": "#ffff00",
+      "secondary": "#00F0FF",
+      "tertiary": "#FF46A2",
+      "fourth": "#EE4B2B"
+    }
   },
   {
     "id": "cobalt-sky",
@@ -335,7 +432,13 @@ window.ORGANON_PALETTES = [
       "#6d8196",
       "#ffffff",
       "#d1e9f5"
-    ]
+    ],
+    "roles": {
+      "primary": "#0047ab",
+      "secondary": "#000080",
+      "tertiary": "#82C8E5",
+      "fourth": "#6D8196"
+    }
   },
   {
     "id": "salt-and-pepper",
@@ -355,7 +458,13 @@ window.ORGANON_PALETTES = [
       "#888888",
       "#ffffff",
       "#e5e5e5"
-    ]
+    ],
+    "roles": {
+      "primary": "#2b2b2b",
+      "secondary": "#FFFFFF",
+      "tertiary": "#D4D4D4",
+      "fourth": "#B3B3B3"
+    }
   },
   {
     "id": "old-photograph",
@@ -375,7 +484,13 @@ window.ORGANON_PALETTES = [
       "#878672",
       "#ffffff",
       "#e7e5c6"
-    ]
+    ],
+    "roles": {
+      "primary": "#545333",
+      "secondary": "#FDFBD4",
+      "tertiary": "#D9D7B6",
+      "fourth": "#878672"
+    }
   },
   {
     "id": "cappuccino",
@@ -395,7 +510,13 @@ window.ORGANON_PALETTES = [
       "#8c7962",
       "#ffffff",
       "#c6c0b9"
-    ]
+    ],
+    "roles": {
+      "primary": "#422701",
+      "secondary": "#D6B588",
+      "tertiary": "#C6C0B9",
+      "fourth": "#705E46"
+    }
   },
   {
     "id": "mountain-mist",
@@ -415,6 +536,12 @@ window.ORGANON_PALETTES = [
       "#6d8196",
       "#ffffff",
       "#d7e7eb"
-    ]
+    ],
+    "roles": {
+      "primary": "#01796f",
+      "secondary": "#6D8196",
+      "tertiary": "#B0C4DE",
+      "fourth": "#5A5A5A"
+    }
   }
 ];
