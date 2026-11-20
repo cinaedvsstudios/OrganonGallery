@@ -1,6 +1,6 @@
 # OrganonGallery — progress and continuation plan
 
-## THIRD REVIEW — completed in staging, final copy pending (2026-11-20)
+## THIRD REVIEW — completed, verified and saved (2026-11-20)
 - Websites and Web apps merged. Current counts: **35 entries, 31 downloadable starters, 4 studies, 21 palettes, 651 prebuilt palette ZIPs**. Categories: 12 Websites & Web apps, 4 Databases, 4 Chrome extensions, 7 Dashboards, 8 Elements.
 - Sliding Tool Hub corrected using the original Organon navigation/timer structure: two independently collapsible rows; category selection replaces the tool row. After idle, row two begins a 550ms fade/collapse at 3.2 seconds; row one follows 1.75 seconds later (transition plus gap). Hover/keyboard interaction resets timing; pinning prevents closure. No combined hide animation.
 - Moving Showcase now has a measured moving strip, even over the pointer and with reduced-motion set when running is explicitly selected. Old hover/reduced-motion CSS no longer silently stops it. Explicit pause/resume remains available. Desktop/mobile loops use the correct 8-item cycle width.
@@ -12,11 +12,11 @@
 - Verification passed: actual row heights and transition duration at timed intervals; actual moving-strip transforms, hover, pause/resume and reduced-motion preference; visible California/Cyberpunk button colors and differing borders; shape/thickness/glass/gradients/icon modes; custom ZIP download; Registry Reports combined filters and CRUD; visual initialization in all 35 entries; representative phone previews and both dropdowns fit.
 - All 651 static ZIPs passed integrity/theme/local-asset/CSP checks. All 31 extracted starters and three extension UI files opened independently. File-based custom site and extension ZIPs passed CRC/config checks and rendered their selected styles after extraction.
 - Thumbnails were refreshed from the actual updated previews (26 screenshot thumbnails). User selections are applied to the preview; thumbnails remain neutral layout snapshots.
-- Remaining finalization: copy verified changes and this progress file to F:\GITHUB\OrganonGallery; keep .git and unrelated edits intact. No publication performed.
+- Completed: saved all revisions to F:\GITHUB\OrganonGallery; 734 copied files were hash-verified. .git and unrelated files were preserved. No publication performed.
 
 ## Previous completed batch / source mapping
 
-Updated: 2026-11-20. Current phase: third review implemented and checked; final save in progress. No publication performed.
+Updated: 2026-11-20. Current phase: third review complete, checked and saved to F:\GITHUB\OrganonGallery. No publication performed.
 
 ## User requirements
 - Public gallery web app in F:\GITHUB\OrganonGallery. Blank, unbranded starters with generic logos, lorem ipsum, placeholder imagery, real menus and normal controls.
@@ -129,7 +129,7 @@ Open index.html in a browser. To rebuild: `python build_downloads.py`. No npm in
 No commit, push or publication was performed by this agent. When the user requests publishing, review/commit/push files to main, configure Pages source = GitHub Actions if necessary, and verify the workflow deployment. Expected public subpath: /OrganonGallery/.
 
 ## Next steps
-1. Final third-review copy pending; prior second-review copy was completed and hash-verified.
+1. Completed: third-review source, assets, thumbnails, package data and downloads copied and hash-verified.
 2. Review further user feedback; preserve distinct structures rather than adding palette-only duplicates.
 3. Optionally replace the four remaining generic studies with additional verified source starters, or extract more reusable Elements when requested.
 4. Publish via the user's GitHub repository when requested. Actual Chrome installation testing can be done separately if needed.
