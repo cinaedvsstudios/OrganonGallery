@@ -758,5 +758,192 @@ window.ORGANON_CATALOG = [
       ],
       "approach": "sanitized-local-source-layout-adaptation"
     }
+  },
+  {
+    "id": "storyboard-planner",
+    "name": "Storyboard & Production Planner",
+    "category": "website",
+    "label": "Web app",
+    "kind": "storyboardPlanner",
+    "art": "peach",
+    "description": "Scene outline, storyboard cards, shot list and editable shot inspector.",
+    "features": [
+      "Reorderable shot sequence and scene outline",
+      "Grid/list view with visual shot cards",
+      "Edit shot type, duration and notes",
+      "Duplicate, delete and add scenes"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "visual-workflow",
+    "name": "Visual Workflow Builder",
+    "category": "website",
+    "label": "Web app",
+    "kind": "visualWorkflow",
+    "art": "mint",
+    "description": "Interactive node-based process mapping canvas with connected steps.",
+    "features": [
+      "Draggable typed nodes and curved connectors",
+      "Source-to-target node connection mode",
+      "Zoomable canvas and node inspector",
+      "Add, edit, delete and reset nodes"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "knowledge-portal",
+    "name": "Documentation & Knowledge Portal",
+    "category": "website",
+    "label": "Website",
+    "kind": "knowledgePortal",
+    "art": "blue",
+    "description": "Three-column article layout with topic tree and anchored contents.",
+    "features": [
+      "Hierarchical article navigation and search",
+      "Sticky-style topic and contents structure",
+      "In-page section links and sample code",
+      "Previous/next page navigation"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "multi-step-wizard",
+    "name": "Multi-Step Form Wizard",
+    "category": "website",
+    "label": "Web app",
+    "kind": "multiStepWizard",
+    "art": "rose",
+    "description": "Guided form with progress, validation and final review.",
+    "features": [
+      "Progress steps and Back/Continue controls",
+      "Inline name/email validation",
+      "Conditional options and editable notes",
+      "Review and local confirmation screens"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "map-results-explorer",
+    "name": "Map & Results Explorer",
+    "category": "website",
+    "label": "Web app",
+    "kind": "mapResultsExplorer",
+    "art": "mint",
+    "description": "Split map/list exploration with filters and location inspector.",
+    "features": [
+      "Linked map markers and search results",
+      "Category and text filters",
+      "Map/list toggle and zoom controls",
+      "Local schematic map; no paid API"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "data-field-mapper",
+    "name": "Data Import & Field Mapper",
+    "category": "database",
+    "label": "Database UI",
+    "kind": "dataFieldMapper",
+    "art": "blue",
+    "description": "Step-by-step CSV import, field matching and validation preview.",
+    "features": [
+      "Load local CSV or use sample data",
+      "Map source fields to target columns",
+      "Mapping validation and record preview",
+      "Export mapped JSON locally"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "asset-library-review",
+    "name": "Asset Library & Review",
+    "category": "database",
+    "label": "Database UI",
+    "kind": "assetLibraryReview",
+    "art": "rose",
+    "description": "Asset grid/list with review badges and a metadata inspector.",
+    "features": [
+      "Selectable visual asset library",
+      "Grid/list and review-status filters",
+      "Search and metadata inspector",
+      "Local approve/reject actions"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "smart-file-upload",
+    "name": "Smart File Upload",
+    "category": "elements",
+    "label": "UI Element",
+    "kind": "smartFileUpload",
+    "art": "mint",
+    "description": "Drop-zone component with previews and file validation states.",
+    "features": [
+      "Drag and drop or select multiple files",
+      "Size and type validation",
+      "Image thumbnails and removable queue",
+      "Local validation states, no server required"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "bottom-sheet-drawer",
+    "name": "Bottom Sheet & Slide-Out Drawer",
+    "category": "elements",
+    "label": "UI Element",
+    "kind": "bottomSheetDrawer",
+    "art": "peach",
+    "description": "Mobile bottom sheet and side drawer with snap positions.",
+    "features": [
+      "Bottom-sheet and side-drawer layouts",
+      "Small, medium and large snap sizes",
+      "Dismiss with backdrop, Escape or drag",
+      "Working sample controls in a device frame"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "contextual-floating-toolbar",
+    "name": "Contextual Floating Toolbar",
+    "category": "elements",
+    "label": "UI Element",
+    "kind": "contextualFloatingToolbar",
+    "art": "blue",
+    "description": "Selection-triggered formatting toolbar positioned beside text.",
+    "features": [
+      "Floating action bar beside selected text",
+      "Editable document selection behavior",
+      "Bold, italic and highlight actions",
+      "Copy selected text with fallback notice"
+    ],
+    "ready": true,
+    "newUi": true
+  },
+  {
+    "id": "comparison-slider",
+    "name": "Before & After Comparison Slider",
+    "category": "elements",
+    "label": "UI Element",
+    "kind": "comparisonSlider",
+    "art": "peach",
+    "description": "Draggable image reveal with horizontal and vertical modes.",
+    "features": [
+      "Interactive layered image comparison",
+      "Horizontal and vertical reveal modes",
+      "Keyboard-accessible slider",
+      "Reset and percentage readout"
+    ],
+    "ready": true,
+    "newUi": true
   }
 ];

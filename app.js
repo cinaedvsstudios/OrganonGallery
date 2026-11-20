@@ -19,7 +19,27 @@ function nav(){
  document.querySelector('#project-prompt-link').onclick=()=>{location.hash='project-prompt'};
 }
 const lines='<div class="mini-line"></div><div class="mini-line short"></div>';
-function miniature(t){if(t.source||t.kind==='editorial')return `<img class="template-thumbnail" src="./thumbnails/${t.id}.png" alt="${t.name} layout" loading="lazy">`;const bar='<div class="mini-bar"><i></i><i></i><i></i><span></span></div>';
+function newDesignMiniature(t){
+ const k=t.kind;
+ const tile=(n,cls='')=>Array.from({length:n},(_,i)=>'<i class="'+cls+'"></i>').join('');
+ let shape='';
+ switch(k){
+ case 'storyboardPlanner':shape='<div class="ogx-mini-strip">'+tile(4,'shot')+'</div><div class="ogx-mini-foot">'+tile(3,'line')+'</div>';break;
+ case 'visualWorkflow':shape='<div class="ogx-mini-nodes"><b>START</b><em>⟶</em><b>ACT</b><em>⟶</em><b>END</b></div><div class="ogx-mini-foot">'+tile(2,'line')+'</div>';break;
+ case 'knowledgePortal':shape='<div class="ogx-mini-doc"><aside>'+tile(6,'line')+'</aside><main><b>DOCUMENTATION</b>'+tile(6,'line')+'</main><aside>'+tile(4,'line')+'</aside></div>';break;
+ case 'multiStepWizard':shape='<div class="ogx-mini-stepper"><i>1</i><span></span><i>2</i><span></span><i>3</i></div><div class="ogx-mini-form">'+tile(3,'field')+'</div>';break;
+ case 'mapResultsExplorer':shape='<div class="ogx-mini-map"><aside>'+tile(3,'result')+'</aside><main><i class="pin p1">●</i><i class="pin p2">●</i><i class="pin p3">●</i></main></div>';break;
+ case 'dataFieldMapper':shape='<div class="ogx-mini-mapcols"><aside>'+tile(4,'field')+'</aside><span>➜<br>➜<br>➜</span><aside>'+tile(4,'field')+'</aside></div>';break;
+ case 'assetLibraryReview':shape='<div class="ogx-mini-library"><aside>'+tile(6,'shot')+'</aside><main>'+tile(3,'line')+'</main></div>';break;
+ case 'smartFileUpload':shape='<div class="ogx-mini-drop"><strong>⇧</strong><span>DROP FILES</span></div><div class="ogx-mini-foot">'+tile(3,'line')+'</div>';break;
+ case 'bottomSheetDrawer':shape='<div class="ogx-mini-device"><div class="ogx-mini-sheet"><b>≡</b>'+tile(2,'line')+'</div></div>';break;
+ case 'contextualFloatingToolbar':shape='<div class="ogx-mini-editor">'+tile(5,'line')+'<div class="ogx-mini-toolbar">B　<i>I</i>　▣　⛓</div>'+tile(3,'line')+'</div>';break;
+ case 'comparisonSlider':shape='<div class="ogx-mini-compare"><div></div><div></div><span>↔</span></div>';break;
+ }
+ return '<div class="mini ogx-mini"><div class="mini-bar"><i></i><i></i><i></i><span></span></div><div class="ogx-mini-stage ogx-mini-'+k+'">'+shape+'</div></div>';
+}
+
+function miniature(t){if(t.newUi)return newDesignMiniature(t);if(t.source||t.kind==='editorial')return `<img class="template-thumbnail" src="./thumbnails/${t.id}.png" alt="${t.name} layout" loading="lazy">`;const bar='<div class="mini-bar"><i></i><i></i><i></i><span></span></div>';
 if(t.kind==='site')return `<div class="mini">${bar}<div class="mini-site-nav"><span class="mini-logo">◈ logo</span><span>Home &nbsp; About &nbsp; Services &nbsp; Contact</span></div><div class="mini-site-hero"><div><div class="mini-tag">LOREM IPSUM</div><div class="mini-title">Lorem ipsum<br>dolor sit amet.</div>${lines}<i class="mini-cta"></i></div><div class="mini-shape"></div></div><div class="mini-bottom"><i></i><i></i><i></i></div></div>`;
 if(t.kind==='editorial')return `<div class="mini">${bar}<div class="mini-site-nav"><span class="mini-logo">◈ logo</span><span>Pages &nbsp; About &nbsp; Contact</span></div><div class="mini-editorial"><div><div class="mini-serif">Lorem ipsum.<br>Dolor sit amet.</div>${lines}<i class="mini-cta"></i></div><div class="mini-photo tall"><span>◇</span></div><div><div class="mini-serif small">Lorem ipsum.</div>${lines}<div class="mini-photo short-photo"><span>◇</span></div></div></div></div>`;
 if(t.kind==='panorama')return `<div class="mini">${bar}<div class="mini-panorama"><div class="mini-float-nav">◈ logo <span>Projects &nbsp; Company &nbsp; News</span></div><div class="mini-panorama-title">Lorem ipsum dolor.<br>Consectetur adipiscing.</div><div class="mini-panorama-lines">Lorem ipsum dolor sit amet.</div><i class="mini-cta"></i></div></div>`;
