@@ -4,7 +4,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -22,6 +22,37 @@ jobs:
         with:
           python-version: '3.x'
       - run: python build_downloads.py
+      - name: Verify all 42 starters and their package manifests
+        run: |
+          node --check previews/additions-web.js
+          node --check previews/additions-tools.js
+          node --check app.js
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from zipfile import ZipFile
+          catalog=json.loads(Path('catalog.js').read_text().split('=',1)[1].strip().removesuffix(';'))
+          ready=[item for item in catalog if item.get('ready')]
+          palettes=json.loads(Path('palettes.js').read_text().split('=',1)[1].strip().removesuffix(';'))
+          zips=list(Path('downloads').glob('*.zip'))
+          sources=list(Path('package-data').glob('*.js'))
+          assert len(ready)==42 and len(palettes)==21, (len(ready),len(palettes))
+          assert len(zips)==len(ready)*len(palettes)==882, len(zips)
+          assert len(sources)==len(ready), len(sources)
+          for item in (item for item in catalog if item.get('newUi')):
+              slug=('additional-element-' if item['category']=='elements' else '')+item['id']
+              path=Path('downloads')/f'{slug}-original.zip'
+              assert path.is_file(), path
+              with ZipFile(path) as z:
+                  names=set(z.namelist())
+                  assert f'{slug}/index.html' in names
+                  assert f'{slug}/BUILD-INSTRUCTIONS.md' in names
+                  assert f'{slug}/PROJECT-BRIEF.md' in names
+                  assert f'{slug}/'+('ELEMENT-MANIFEST.json' if item['category']=='elements' else 'TEMPLATE-MANIFEST.json') in names
+                  for asset in ['additions-web.js','additions-tools.js','additions.css']:
+                      assert f'{slug}/{asset}' in names, (slug,asset)
+          print('Verified 42 starters, 21 palettes, 882 ZIPs, 42 package sources and 11 new manifests.')
+          PY
       - name: Assemble public files only
         run: |
           mkdir _site
@@ -34,3 +65,14 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Save newly generated archives and package sources for offline local use
+        if: contains(github.event.head_commit.message, '[sync-gallery-assets]')
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git ls-files --others --exclude-standard -z -- downloads package-data | xargs -0 -r git add --
+          if ! git diff --cached --quiet; then
+            git commit -m "Add generated starter ZIPs and package sources [skip ci]"
+            git push origin HEAD:main
+          fi
