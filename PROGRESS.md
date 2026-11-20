@@ -9,7 +9,7 @@
 - Added Project prompt directly underneath Elements. Its page (#project-prompt) contains a short generic prompt and a Copy project prompt button with manual-copy fallback. It directs a fresh chat to open all ZIPs and read BUILD-INSTRUCTIONS.md, completed PROJECT-BRIEF.md and manifests. Filling a brief is optional; answers may be supplied in chat. This is a navigation page, not a template or category; collection counts are unchanged.
 - Browser-created downloads update selected appearance consistently in BUILD-INSTRUCTIONS.md, manifests, style-config.js and standalone/native-extension bootstraps. Both custom appearance and static fallback links preserve the element filename convention.
 - Verification passed: all 651 static ZIP CRCs/paths/instructions/manifests/source mappings and canonical package-data; all 31 actual download buttons with California Beaches plus custom glass/3px settings; matching documentation/config in the resulting ZIPs; native extension manifests/CSP scripts; 10 extracted standalone/native pages; working extracted gallery lightbox; prompt navigation/reload/copy/fallback; mobile overflow and desktop/mobile screenshots; no browser errors. QA is in staging qa/ only.
-- Saved files: app.js, index.html, style.css, zip-download.js, build_downloads.py, new package_instructions.py, this progress file, 31 package-data scripts and 651 archives. Existing GitHub Pages workflow runs the builder (which imports the new helper); no public runtime dependency was added. Catalog, preview designs and prior pending documentation-placement task are unchanged.
+- Saved files: app.js, index.html, style.css, zip-download.js, build_downloads.py, new package_instructions.py, this progress file, 31 package-data scripts and 651 archives. Existing GitHub Pages workflow runs the builder (which imports the new helper); no public runtime dependency was added. That download-build batch left catalog and preview designs unchanged; template-copy integration was addressed in the later section below.
 - Suggestions discussed for a later batch, not implemented: media editing workbench; storyboard/shot planning board; relationship explorer; guided file-import wizard; game interface shell. These differ structurally from the current collection.
 
 ## GALLERY PALETTE AND LOCK — completed and verified (2026-11-20)
@@ -19,9 +19,13 @@
 - Verification: desktop and mobile toggle behavior, ordering, template changes while locked, reload persistence, all 21 palettes' navigation/title/card-text contrast, no horizontal mobile overflow and no browser errors passed. Desktop and mobile screenshots inspected.
 - Changed only index.html, app.js, style.css and this progress file; no starter/ZIP rebuild needed. QA helpers and screenshots stay in staging qa/ and are excluded from the public site.
 
-## PENDING — template information placement clarification
-- User explicitly rejected the generic "Template details" disclosure above each template's normal content. They want the information integrated into a suitable place in each actual page design, replacing relevant placeholder text where appropriate: Photo Gallery below its title; Panorama hero title/paragraph can become the template information. Each design needs individual inspection and placement.
-- This clarification has been acknowledged; placement changes have NOT been made in the gallery palette/checkbox task. The existing disclosure is not an approved final solution.
+## GALLERY TEMPLATE COPY — individually integrated (2026-11-20)
+- Removed the generic, initially open "Template details" disclosure that was being prepended above each preview. No shared floating/accordion information panel is inserted.
+- In previews/collection.js, the existing gallery-only showTemplateDetails() hook now selects the specific catalog ID and places concise, purpose-written explanations into **each layout's native content**. All 35 entries have explicit per-template placement rules (31 downloadable starter previews and four preview-only studies); this is not a single universal block.
+- Reused appropriate existing copy: Basic Site hero/feature text, Panorama hero paragraph, Photo Gallery paragraph directly beneath its title, Tabs & Accordion introduction, navigation example content, dashboard captions/introductory text, settings help and existing report explanations. Where the design has no suitable paragraph, inserted a short unobtrusive sentence near its native heading, filtering controls, or working panel.
+- Editorial Site, Studio Carousel, Moving Showcase and Story Frame regenerate slide content when navigating; their introductory explanations are reapplied only to their home/first slide via a scoped MutationObserver. Other slides and interactive controls retain their own text and state.
+- This change is **gallery-preview only**. In downloaded standalone/static/extension packages, the pre-existing builder removes the hook call. Their starter labels, editable placeholders and download instructions remain unchanged, so no ZIP regeneration is needed for this copy-only task.
+- JavaScript syntax and the presence of 35 per-template rules were checked prior to committing. Full desktop/mobile visual regression and live interaction testing of every route remains worthwhile if changes to spacing or behavior are noticed.
 
 ## THIRD REVIEW — completed, verified and saved (2026-11-20)
 - Websites and Web apps merged. Current counts: **35 entries, 31 downloadable starters, 4 studies, 21 palettes, 651 prebuilt palette ZIPs**. Categories: 12 Websites & Web apps, 4 Databases, 4 Chrome extensions, 7 Dashboards, 8 Elements.
@@ -45,7 +49,7 @@ Updated: 2026-11-20. Current phase: third review complete, checked and saved to 
 - Public gallery web app in F:\GITHUB\OrganonGallery. Blank, unbranded starters with generic logos, lorem ipsum, placeholder imagery, real menus and normal controls.
 - Filter by Websites & Web apps (merged), Databases, Chrome extensions, Dashboards and Elements; saved favorites and search/sort.
 - Sticky sidebar with white navigation text and darker borders; sticky title bar with current page title, gallery-color lock checkbox, Color palette, Style and Download ZIP. The gallery now follows the selected palette unless locked. No duplicate title, promotional copy, marketing banners or right-hand palette panel.
-- Actual iframe previews with desktop/tablet/mobile sizing and fullscreen. Feature information must be integrated into the actual template page's normal content in a suitable location for each design. The existing “Template details” disclosure was rejected; replacement remains pending as described above. Starter downloads currently omit that disclosure.
+- Actual iframe previews with desktop/tablet/mobile sizing and fullscreen. Feature descriptions are now integrated into each preview's normal content in a layout-specific location; the rejected generic “Template details” disclosure is gone. Standalone starter downloads remain editable and unbranded.
 - A single layout per template; color schemes are options. 21 shared palettes. Cherry Blossom uses Wisteria Bloom colors; Neon Noir merged into Cyberpunk.
 - Editorial must be a centered frame with headline and image columns, side arrows, and separate carousels for each menu. Implemented with Pages, About, Services, Contact; each collection remembers its own slide position.
 - Blank Page removed from the catalog, as requested. The former Desktop apps category remains replaced by Dashboards.
@@ -116,7 +120,7 @@ Registry Reports is the additional source adaptation from backroomadmin/public/a
 - catalog.js: shared metadata/feature list, kinds and source provenance for all 34 entries. Add content here, not in duplicated arrays.
 - palettes.js: shared 21 named palettes and semantic color tokens for previews and downloads.
 - style.css: gallery styling; review overrides at end.
-- previews/demo.html: shared preview host, Basic Site and original studies. Details disclosure renders from the shared catalog in gallery mode only.
+- previews/demo.html: shared preview host, Basic Site and original studies. Its gallery-only showTemplateDetails() hook now delegates layout-specific native text placement in previews/collection.js; no generic details panel is created.
 - previews/websites.js/.css: Editorial/Panorama; collection.js/.css: first 14 source layouts and shared helpers; extras.js/.css: the 10 later additions.
 - thumbnails/: 26 actual preview screenshots for rebuilt Editorial plus 24 source adaptations. Remaining original cards use lightweight HTML miniatures.
 - build_downloads.py: reads catalog and palettes, strips unused study dispatch and gallery documentation, writes standalone starter assets and instructions. Python standard library only.
