@@ -10,9 +10,8 @@ target = ROOT / 'downloads'
 target.mkdir(exist_ok=True)
 registry = (ROOT / 'palettes.js').read_text(encoding='utf-8')
 palettes = json.loads(registry.split('=', 1)[1].strip().removesuffix(';'))
-templates = [('basic-site', 'site'), ('editorial-site', 'editorial'),
-             ('panorama-site', 'panorama'), ('navigation-panel', 'navigation'),
-             ('photo-gallery', 'gallery'), ('tabs-accordion', 'controls')]
+catalog = json.loads((ROOT / 'catalog.js').read_text(encoding='utf-8').split('=',1)[1].strip().removesuffix(';'))
+templates = [(t['id'],t['kind']) for t in catalog if t.get('ready')]
 count = 0
 for slug, kind in templates:
     for palette in palettes:
@@ -22,7 +21,9 @@ for slug, kind in templates:
         start = html.index('const menus=')
         dispatch = re.search(r'\(\{site,editorial,panorama,.*?\}\[kind\]\|\|site\)\(\);', html)
         assert dispatch, 'Preview dispatch not found'
-        html = html[:start] + kind + '();\n' + html[dispatch.end():]
+        escape_helper = next(line for line in source.splitlines() if line.startswith('function escapeHTML(text)'))
+        html = html[:start] + escape_helper + '\n' + kind + '();\n' + html[dispatch.end():]
+        html = html.replace('showTemplateDetails();','').replace('<script src="../catalog.js"></script>','')
         html = html.replace('../palettes.js', './palettes.js')
         asset_group = 'websites' if kind in ['editorial', 'panorama'] else 'elements' if kind in ['navigation', 'gallery', 'controls'] else None
         for group in ['websites', 'elements']:
@@ -32,11 +33,39 @@ for slug, kind in templates:
         with ZipFile(target / f'{slug}-{theme}.zip', 'w', ZIP_DEFLATED) as archive:
             archive.writestr(f'{slug}/index.html', html)
             archive.writestr(f'{slug}/palettes.js', registry)
+            for filename in ['collection.css','collection.js','extras.css','extras.js']:
+                archive.writestr(f'{slug}/{filename}',(ROOT/'previews'/filename).read_text(encoding='utf-8'))
             if asset_group:
                 for suffix in ['css', 'js']:
                     filename = f'{asset_group}.{suffix}'
                     archive.writestr(f'{slug}/{filename}', (ROOT / 'previews' / filename).read_text(encoding='utf-8'))
             archive.writestr(f'{slug}/START-HERE.txt', f'''{slug.upper()}\nSelected palette: {palette['name']}\n\nOpen index.html in your browser. No installation or build is needed.\nKeep all included files together when uploading to a static host.\n\nReplace generic logos, lorem ipsum, and image placeholders with your own content.\nEdit palettes.js and FIXED_CONFIG in index.html to change the default colors.\nAll available color schemes are included.\nContact forms demonstrate validation and local confirmation only; connect your own form service to receive messages.\n\nELEMENTS\nFor elements, copy the component markup from its render function, its matching CSS, and event handlers into your project. The files include a working standalone demo. Navigation Panel renders navigation(); Photo Gallery renders gallery(); Tabs & Accordion renders controls(). Color variables are set by setTheme() from palettes.js.\n\nSystem fonts and local CSS/SVG placeholders. No external dependencies or private credentials.\n''')
             archive.writestr(f'{slug}/LICENSE.txt', 'Generic starter\n\nPermission is granted to use, modify and redistribute this generic starter for personal or commercial projects, without warranty.\n')
+            item = next(t for t in catalog if t['id']==slug)
+            if item.get('source'):
+                archive.writestr(f'{slug}/SOURCE.txt',json.dumps(item['source'],indent=2))
+            if item['category']=='extension':
+                # Chrome extensions disallow inline script. Extract the bootstrap into a local file.
+                bootstrap = re.search(r'<script>(.*?)</script>',html,re.S).group(1)
+                html = re.sub(r'<script>.*?</script>','<script src="./bootstrap.js"></script>',html,flags=re.S)
+                archive.writestr(f'{slug}/extension/index.html',html)
+                archive.writestr(f'{slug}/extension/bootstrap.js',bootstrap)
+                assets=['palettes.js','collection.js','collection.css','extras.css','extras.js']
+                for filename in assets:
+                    data=registry if filename=='palettes.js' else (ROOT/'previews'/filename).read_text(encoding='utf-8')
+                    archive.writestr(f'{slug}/extension/{filename}',data)
+                manifest={'manifest_version':3,'name':item['name']+' Starter','version':'1.0.0','description':'Generic UI starter with local demo data. No site access.'}
+                if kind=='socialComposer':
+                    manifest.update(permissions=['sidePanel'],side_panel={'default_path':'index.html'},action={},background={'service_worker':'extension-background.js'})
+                    background="chrome.sidePanel.setPanelBehavior({openPanelOnActionClick:true});"
+                elif kind=='automationQueue':
+                    manifest.update(action={},background={'service_worker':'extension-background.js'})
+                    background="chrome.action.onClicked.addListener(()=>chrome.windows.create({url:chrome.runtime.getURL('index.html'),type:'popup',width:1100,height:700}));"
+                else:
+                    manifest.update(action={'default_popup':'index.html','default_title':item['name']})
+                    background=None
+                archive.writestr(f'{slug}/extension/manifest.json',json.dumps(manifest,indent=2))
+                if background:archive.writestr(f'{slug}/extension/extension-background.js',background)
+                archive.writestr(f'{slug}/extension/INSTALL.txt','Enable Developer mode in chrome://extensions, choose Load unpacked, and select this extension folder. The package contains UI simulations only; no original automation or accounts are connected.')
         count += 1
 print(f'Built {count} ZIPs: {len(templates)} starters x {len(palettes)} color schemes.')

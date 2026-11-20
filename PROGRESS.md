@@ -1,93 +1,120 @@
 # OrganonGallery — progress and continuation plan
 
-Updated: 2026-11-20. Current phase: first design review implemented, verified and saved to F:\GITHUB\OrganonGallery. Ready for further user feedback or phase-two source import. Existing project import is still phase two.
+Updated: 2026-11-20. Current phase: second review and both requested source batches complete, verified and saved to F:\GITHUB\OrganonGallery. No publication performed.
 
-## User requirements and accepted feedback
-- Public web app in F:\GITHUB\OrganonGallery, hosted through the user's GitHub repository.
-- Browse distinct templates, see features, try a working iframe, expand fullscreen and download a ZIP.
-- Templates must be unbranded: generic logos, lorem ipsum, image placeholders. Keep standard menus and controls.
-- Color changes are options on a template, never duplicate gallery entries.
-- Blue sticky left navigation with white text. Darker borders and readable contrast throughout.
-- Sticky charcoal top bar holds the current page title and a Color palette dropdown. Do not repeat the title in the gallery body.
-- No promotional slogans, marketing banners, Explore palettes button, progress pitches or duplicate right-hand palette panel.
-- Show features as plain text above the preview. Keep desktop/tablet/mobile controls and fullscreen.
-- Replace Desktop apps category with Dashboards. Blank Page now belongs under Web apps; Overview belongs under Dashboards.
-- Add Elements for reusable pieces that can be combined with templates. Initial elements: Navigation Panel, Photo Gallery, Tabs & Accordion.
-- Build the frame before extracting source projects; retain one progress/plan Markdown file in the repository.
+## User requirements
+- Public gallery web app in F:\GITHUB\OrganonGallery. Blank, unbranded starters with generic logos, lorem ipsum, placeholder imagery, real menus and normal controls.
+- Filter by Websites, Web apps, Databases, Chrome extensions, Dashboards and Elements; saved favorites and search/sort.
+- Blue sticky sidebar, white navigation text, darker borders. Sticky charcoal top bar contains the current page title, Color palette dropdown and Download ZIP. No duplicate title, promotional copy, marketing banners or right-hand palette panel.
+- Actual iframe previews with desktop/tablet/mobile sizing and fullscreen. Feature information must be ON THE TEMPLATE WEBPAGE: it now appears inside the iframe in an open “Template details” disclosure. It is removed from starter downloads.
+- A single layout per template; color schemes are options. 21 shared palettes. Cherry Blossom uses Wisteria Bloom colors; Neon Noir merged into Cyberpunk.
+- Editorial must be a centered frame with headline and image columns, side arrows, and separate carousels for each menu. Implemented with Pages, About, Services, Contact; each collection remembers its own slide position.
+- Blank Page removed from the catalog, as requested. The former Desktop apps category remains replaced by Dashboards.
+- Elements are separately reusable pieces for manually combining with starters. No visual page builder was requested or implemented.
+- Maintain this single Markdown handoff file so work can resume without chat history.
 
 ## Locations and repository
-- Destination and source of truth: F:\GITHUB\OrganonGallery.
+- Final destination: F:\GITHUB\OrganonGallery.
 - Remote: https://github.com/cinaedvsstudios/OrganonGallery.git ; branch: main.
-- Other existing projects: F:\GITHUB (26 initial top-level folders, including this gallery).
-- Extension projects: C:\Users\User\OneDrive\Documents\Extentions (11 initial folders).
-- Writable staging copy: C:\Users\User\OneDrive\Documents\ChatGPT\Organon\OrganonGallery.
-- QA scripts, extracted sample ZIPs and screenshots: qa/ in the staging copy; ignored by Git and excluded from publication.
-- Read applicable AGENTS.md instructions before working in another source project. Preserve existing .git and .gitattributes.
+- Writable staging: C:\Users\User\OneDrive\Documents\ChatGPT\Organon\OrganonGallery.
+- Source projects: F:\GITHUB. Extensions: C:\Users\User\OneDrive\Documents\Extentions.
+- QA scripts, extracted starter samples and screenshots: staging qa/ (ignored by Git and excluded from public deployment).
+- Preserve .git, .gitattributes and unrelated user edits. Before this batch only our checkpoint PROGRESS.md differed in the repository.
 
-## Current content
-Ready, previewable and downloadable:
-1. Basic Site: responsive header, navigation dropdown, two-column hero, cards, dialogs, validated demo contact form.
-2. Editorial Site: asymmetrical three-column hero, serif headings, image panels, pill controls. Inspired by the user's first supplied website reference, with generic content and no copied brand or photography.
-3. Panorama Site: full-height background placeholder, floating navigation, centered hero, project dialog and section navigation. Inspired by the user's second website reference, with local CSS artwork.
-4. Navigation Panel element: expandable groups, active page state and responsive menu toggle.
-5. Photo Gallery element: filterable grid, lightbox, previous/next and keyboard/Escape controls. Generic local SVG placeholders.
-6. Tabs & Accordion element: accessible keyboard tabs, expandable panels, settings switch and dialogs.
+## Current collection
+34 entries: 30 ready downloadable starters, 4 clearly marked interactive studies. By category: 11 Websites, 1 Web app, 4 Databases, 4 Chrome extensions, 6 Dashboards, 8 Elements.
 
-Five interactive layout studies (clearly labeled Study; no download): Overview dashboard, Workspace task board, Data Room table, Pocket Panel extension popup, Blank Page editor. These are demonstration UI layouts, not extractions from the user's original projects.
+Existing ready starters: Basic Site, rebuilt Editorial Site, Panorama Site, Navigation Panel, Photo Gallery, Tabs & Accordion.
 
-Total: 11 gallery entries. Three website templates and three elements have downloads. Each of the six downloadable starters has 21 prebuilt palette ZIPs (126 archives total).
+Four original studies remain without downloads: Overview, Workspace, Data Room, Pocket Panel. They are UI studies, not source extractions. Blank Page has been removed.
+
+24 selected source adaptations/reconstructions:
+
+| Source project | Generic gallery name | Category |
+| --- | --- | --- |
+| backroomadmin | Record Admin | Database UI |
+| VENIVIDIVICI | Dome Studio | Website |
+| Organon | Sliding Tool Hub | Website |
+| cinaedvshub | Task Planner | Website |
+| worksuff/Manifest suite | Workflow Popup | Chrome popup |
+| Extentions/MAC | Automation Queue | Chrome extension |
+| SOPScout Analytics | Usage Analytics | Dashboard |
+| Extentions/Organon-Instagram | Social Reports | Dashboard |
+| Extentions/Organon-Instagram | Social Composer | Chrome side panel |
+| Backroom-site | Events Directory | Website |
+| ChristopherTyler | Portfolio Frame | Website |
+| cinaedvs | Studio Carousel | Website |
+| misschristinadior/misschristinadior | Moving Showcase | Website |
+| ForeverBound/ForeverBound | Story Frame | Website |
+| forever-bound-wiki | Writing Room | Element |
+| forever-bound-wiki | Settings Designer | Element |
+| Extentions/specnoto | Context Search | Element |
+| backroomadmin | Admin Reports | Dashboard |
+| Backroom-site | System Settings | Element |
+| Backroom-site | Location Panel | Element |
+| chrisfit | History Dashboard | Dashboard |
+| Viaticum | Calendar Records | Database UI |
+| Viaticum | Trip Itinerary | Database UI |
+| actarium | Month Dashboard | Dashboard |
+
+These preserve recognizable layout structures and interface interactions, not the original branded content or production integrations. Layouts were rebuilt with shared semantic color variables and local demo data. Source project/file provenance and adaptation approach are in catalog.js and each adapted starter's SOURCE.txt.
+
+## Source evidence and limits
+- Read local layout/UI source for backroomadmin (public/admin.html, public/admin-reporting.js, public/admin-insights.js), VENIVIDIVICI (index.html, assets/pantheon-header.css), Organon (index.html visibility engine and basin structure), cinaedvshub (index.html), worksuff/Manifest suite (main_hub.js), MAC (panel.html and manifest.json), Organon-Instagram (app.html, ui/app.js and ui/views.js), Backroom-site (index.html), ChristopherTyler (index.html/indexpanel.html), cinaedvs (index.html, assets/css/index.css).
+- Added components based on forever-bound-wiki/writing-room-ui.js and editor.html (Writing Room/jumprail and settings), Specnoto/content.js and the Capsanoto Specnoto module, ChrisFit/js/history.js, Viaticum/js/screens/overviewScreen.js and tripScreen.js, Actarium/app.js and shell structure.
+- The requested Christina Dior and Forever Bound website sources were read from connected GitHub: misschristinadior/misschristinadior (index.html, assets/js/site.js) and ForeverBound/ForeverBound (index.html, navigation.js). Do not confuse the latter with local Forever-Bound-Game or the Capsanoto wiki.
+- SOPScout Analytics source was not found in local or connected code search. Usage Analytics is explicitly a reconstruction from the supplied screenshot, not a direct source extraction. No source is missing for the other requested layout references.
+- No source media, user records, credentials, account integrations, live databases or business automation were copied. The originals were not changed.
+- Location Panel uses browser geolocation only after the visitor clicks GPS; it handles permission denial. City search uses generic local sample locations and a clearly labeled schematic map, not geocoding/map tiles. No location is sent to a server.
+- Queue operations, publishing and chart data are local demonstrations. No real external operations occur. Blank-form/template controls are functional; these starters are foundations for later backend work.
+
+## Architecture and files
+- Buildless HTML/CSS/JavaScript; works directly from index.html or any static server. All site paths are relative, supporting /OrganonGallery/ on GitHub Pages.
+- index.html: blue navigation, charcoal sticky title bar, palette dropdown and help.
+- app.js: routing, category/search/sort, saved favorites, preview sizes, fullscreen and download selection.
+- catalog.js: shared metadata/feature list, kinds and source provenance for all 34 entries. Add content here, not in duplicated arrays.
+- palettes.js: shared 21 named palettes and semantic color tokens for previews and downloads.
+- style.css: gallery styling; review overrides at end.
+- previews/demo.html: shared preview host, Basic Site and original studies. Details disclosure renders from the shared catalog in gallery mode only.
+- previews/websites.js/.css: Editorial/Panorama; collection.js/.css: first 14 source layouts and shared helpers; extras.js/.css: the 10 later additions.
+- thumbnails/: 25 actual preview screenshots for rebuilt Editorial plus 24 source adaptations. Remaining original cards use lightweight HTML miniatures.
+- build_downloads.py: reads catalog and palettes, strips unused study dispatch and gallery documentation, writes standalone starter assets and instructions. Python standard library only.
+- downloads/: 630 ZIPs = 30 starters × 21 palettes. ZIPs include all palette definitions with selected default, local source files, instructions and a generic starter license. Adapted entries include provenance.
+- .github/workflows/pages.yml: builds downloads and publishes only index/style/app/palettes/catalog/favicon plus previews/downloads/thumbnails. PROGRESS.md and QA are excluded.
+
+## Chrome starter packages
+Workflow Popup, Automation Queue and Social Composer ZIPs each contain a standalone demo plus an extension/ folder that can be loaded unpacked.
+- Manifest V3; no host permissions or original private automation.
+- Popup, separate automation window and native Chrome side-panel modes respectively.
+- Bootstrap scripts are external files for extension CSP; background scripts only launch the UI or set side-panel click behavior.
+- Manifest/schema/asset/CSP checks and independent browser execution of extension/index.html passed. Actual installation into the user's Chrome profile was not performed or tested.
 
 ## Palettes
-Single source: palettes.js. The gallery, iframe previews and downloadable starters all read this same registry.
-
 Studio, LCARS, Cyberpunk, Windows Default, Cherry Blossom, Springtime, Ink Wash, Burnt Sienna, Desert Dusk, Zesty Lemon, California Beaches, Sunny Day, Bubblegum Pop, Cool Revival, Neon Jungle, Pop Art, Cobalt Sky, Salt and Pepper, Old Photograph, Cappuccino, Mountain Mist.
 
-- Cherry Blossom retains its name but uses the Wisteria Bloom reference: #D3D3FF, #9400D3, #D8BFD8, #ED80E9.
-- Neon Noir is merged into Cyberpunk: black, #2CFF05, #BF00FF and #2D2D2D, plus the previous yellow/pink accents. There is no separate duplicate Neon Noir scheme.
-- All supplied reference palette hex values are recorded in palettes.js. Additional light/dark text/background tokens keep controls readable.
-- Selecting a palette on the gallery sets the scheme for the next preview; selecting it in a template updates the iframe and the download link. Gallery thumbnail drawings remain neutral structural previews.
+Cherry Blossom reference swatches: #D3D3FF, #9400D3, #D8BFD8, #ED80E9. Cyberpunk incorporates Neon Noir black/#2CFF05/#BF00FF/#2D2D2D plus the earlier yellow/pink accents. All supplied hex references remain in palettes.js. Gallery thumbnails show neutral layout previews; the top-bar palette sets the next/current iframe and matching ZIP. File:// changes reload the iframe; HTTP changes use messaging and retain local demo state.
 
-## Files and operation
-- index.html: sidebar, sticky title bar, palette dropdown and help dialog.
-- app.js: metadata, filters, sorting, saved favorites, routing, fullscreen and responsive preview controls.
-- style.css: gallery presentation. Later review overrides are at the end.
-- palettes.js: palette names, reference swatches and semantic CSS token values.
-- previews/demo.html: shared iframe host and original studies/Basic Site.
-- previews/websites.css and websites.js: Editorial/ Panorama website layouts.
-- previews/elements.css and elements.js: reusable element demos.
-- build_downloads.py: standard-library Python ZIP builder. Embeds the selected default scheme, strips unused study logic, and includes needed local assets plus setup instructions.
-- downloads/: 126 static ZIP files; no server or credentials required.
-- .github/workflows/pages.yml: GitHub Pages deployment workflow, uploading only public site files, including palettes.js.
-- PROGRESS.md: this single handoff file.
+## Verification completed this batch
+- qa/collection-check.cjs passed: 34-entry catalog; Blank Page absent; feature text inside all preview webpages and absent outside; downloads for every ready entry; Editorial collections/arrows/dots/keyboard/remembered positions.
+- First source batch controls passed: admin search/full-table/row-selection/removal; dome output and canopy navigation; disappearing tool menus/pin/keyboard; calendar month/task creation/completion; queue paste/start/pause/resume/stop; chart types and period summaries; report cards; composer draft/save/load/publish simulation; directory filters/save; portfolio project/index; studio compositions; moving-strip pause; story sections/chapters.
+- qa/extras-check.cjs passed: nested ancestor expansion/jumprail/editing; settings search/expand/live color; fuzzy search/locked tabs/source jump/regex escaping; reporting scope/query; settings close/reopen/edit; GPS API with simulated coordinates and permission; city selection; custom history periods; records search/copy/undo/bulk selection; trip selection/duplicate/add day; month tasks/archive.
+- All 25 new/rebuilt preview pages checked for desktop and 390px outer/phone iframe widths. Additional 320px audit passed without horizontal page overflow. Tables scroll within their own frames.
+- No runtime exceptions in the complete collection/extra browser runs.
+- All 630 ZIPs passed integrity, theme configuration and referenced-asset checks; 30 extracted inline bootstraps parsed successfully. Extension manifests/CSP/local assets validated.
+- qa/standalone-collection.cjs passed: all 30 extracted starters open independently using the chosen Cherry Blossom default; all three extracted extension/index.html interfaces execute; direct-file gallery and Cyberpunk switching work.
+- Actual screenshots captured for all 25 new/rebuilt thumbnails and representative desktop/mobile gallery states; inspected Editorial, Writing Room, Record Admin and Trip Itinerary.
+- Fixed broad outside-click handling so only popup menus close; nested disclosure boxes and jumprail expansion remain open.
 
-Open index.html directly in a browser, or serve the folder with any static web server. Rebuild ZIPs with `python build_downloads.py`. No Node packages or build installation are needed to use the gallery.
+## Run / rebuild / deployment
+Open index.html in a browser. To rebuild: `python build_downloads.py`. No npm installation is needed. Generate updated preview thumbnails after structural changes (the current capture logic is in staging qa/collection-check.cjs).
 
-Each ZIP opens independently and includes editable source, all palettes, START-HERE.txt and a generic starter license. Contact forms validate and confirm locally; no messages are sent. Database/extension studies have no live connection or browser permissions. Elements include component source for manual reuse; a visual mix-and-match page builder has not been implemented or requested yet.
-
-## Verification
-- Complete Chrome browser review passed: blue/white sidebar, darker borders, sticky charcoal title bar, one gallery page title, removed promotional copy, no right sidebar, inline features, categories, search, sorting and saved favorites.
-- All 21 palette switches checked; selected ZIP links match the chosen palette. Cherry Blossom reference values and Cyberpunk merge explicitly checked.
-- Menus, information dialogs, demo contact form, fullscreen and responsive sizes checked. Sticky top bar stays at viewport top while scrolling.
-- New website menus/dialogs and phone navigation checked.
-- Elements checked: nested navigation/active states, gallery filtering/lightbox/next/previous/keyboard/Escape, keyboard tabs and accordion expansion.
-- Actual element ZIP download checked. All 126 archives passed integrity, selected-config and asset-reference checks. Six representative extracted starters passed JavaScript syntax and standalone browser checks.
-- All ready entries fit 390px outer and inner viewports. Phone palette dropdown fits. Desktop and mobile screenshots inspected.
-- Full review run had no browser exceptions or failed HTTP requests.
-- Direct-file gallery/iframe/theme switching checked. On file:// a palette change reloads the iframe; on HTTP it preserves demo state using messaging.
-- Final desktop/mobile menu CSS is included in the rebuilt standalone downloads. All six rebuilt starters were reopened and checked after resuming.
-
-## Deployment state
-No commit/push or deployment performed by this agent. The user committed the initial frame between reviews; repository was clean when this review began. Do not overwrite unrelated user changes.
-
-GitHub Pages workflow is prepared. To publish when requested: commit/push reviewed files to main, set Pages source to GitHub Actions if necessary, and observe workflow completion. Relative links support /OrganonGallery/. QA files and this progress file are excluded from the published artifact.
+No commit, push or publication was performed by this agent. When the user requests publishing, review/commit/push files to main, configure Pages source = GitHub Actions if necessary, and verify the workflow deployment. Expected public subpath: /OrganonGallery/.
 
 ## Next steps
-1. Completed: final ZIP rebuild, integrity/asset checks, repository copy and updated-frame preview.
-2. Apply further frame feedback if requested.
-3. Inventory F:\GITHUB and the extensions folder. Identify genuinely distinct layouts and components; group recolors as themes.
-4. Extract reusable templates and elements. Remove brands, private data, credentials, runtime data and unnecessary live integrations. Record source provenance and check third-party asset licenses before public distribution.
-5. Replace demonstration studies with verified imported content. Keep generic lorem ipsum, standard controls and accurate feature lists.
-6. Verify each preview, responsive layout and ZIP. Publish through the user's repository when requested.
+1. Completed: final copy to F:\GITHUB\OrganonGallery with all 672 copied files hash-verified; updated-frame preview opened.
+2. Review further user feedback; preserve distinct structures rather than adding palette-only duplicates.
+3. Optionally replace the four remaining generic studies with additional verified source starters, or extract more reusable Elements when requested.
+4. Publish via the user's GitHub repository when requested. Actual Chrome installation testing can be done separately if needed.
 
 ## Resume
-Read this file, inspect repository status and current source, then continue the next steps. Preserve the latest user feedback: functional library interface, no promotional copy, palettes in the sticky top bar, no right-hand panel, and separate Elements and Dashboards categories. Update this file as work progresses.
+Read this file, inspect repository status and catalog.js, and continue the Next steps. All 24 requested additions are implemented; do not restart discovery or rebuild the former Basic-like Editorial layout. Keep the single progress file current.
